@@ -1,0 +1,45 @@
+﻿@model IEnumerable<QL_NhaHang_ADO.Models.PhieuNhapKho>
+
+@{
+    ViewBag.Title = "HienThiHoaDon";
+    Layout = "~/Views/Share/layuot_admin.cshtml";
+}
+
+<a href="@Url.Action("ThemHoaDon", "Admin_HoaDon")" class="btn btn-primary">Tạo Hóa Đơn Mới</a>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaNhapKho)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaNV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayNhapKho)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaNhapKho)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaNV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayNhapKho)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTien)
+        </td>
+        <td>
+            @Html.ActionLink("Chi tiết", "HienThiChiTietHoaDon", "Admin_HoaDon", new { MaNhapKho = item.MaNhapKho }, null) 
+        </td>
+    </tr>
+}
+</table>

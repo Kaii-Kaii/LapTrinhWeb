@@ -1,0 +1,70 @@
+﻿
+
+
+@model IEnumerable<QL_NhaHang_ADO.Models.DanhGia>
+
+@{
+    ViewBag.Title = "ShowDanhGia";
+    Layout = "~/Views/Share/layuot_admin.cshtml";
+}
+<div class="container mt-4">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Danh Sách Đánh Giá</h2>
+
+        <!-- Bảng hiển thị danh sách đánh giá -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 10%;">Mã Đánh Giá</th>
+                        <th style="width: 10%;">Mã Hóa Đơn</th>
+                        <th style="width: 15%;">Tên Khách Hàng</th>
+                        <th style="width: 50%;">Nội Dung</th>
+                        <th style="width: 15%;">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.MaDGia</td>
+                                <td>@item.MaHD</td>
+                                <td>@item.TenKH</td>
+                                <td>@item.NoiDung</td>
+                                <td>
+                                    <!-- Xem Chi Tiết -->
+                                    @Html.ActionLink("Xem Chi Tiết", "ShowCTHD", "NhaHang", new { ma = item.MaHD }, new { @class = "btn btn-sm btn-info" })
+
+                                    <!-- Xóa đánh giá -->
+                                   
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Không có đánh giá nào được tìm thấy.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

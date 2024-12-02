@@ -1,0 +1,51 @@
+﻿
+
+@model IEnumerable<QL_NhaHang_ADO.Models.ChiTietHoaDon>
+
+@{
+    ViewBag.Title = "ShowCTHD";
+    Layout = "~/Views/Share/layuot_admin.cshtml";
+}
+
+<h2>CHI TIẾT HOÁ ĐƠN @ViewBag.MaHD</h2>
+
+<p>
+    <a href="@Url.Action("ShowHD", "NhaHang")" class="btn btn-secondary">Quay Lại</a>
+    <a href="@Url.Action("ShowDanhGia", "DanhGia")" class="btn btn-primary">Quay Lại Trang Đánh Giá</a>
+</p>
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MaHD)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MaMA)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TenMon)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().GiaMon)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().SoLuong)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ThanhTien)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TGHoanThanh)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaHD</td>
+                    <td>@item.MaMA</td>
+                    <td>@item.TenMon</td>
+                    <td>@String.Format("{0:N0}", item.GiaMon) VNĐ</td>
+                    <td>@item.SoLuong</td>
+                    <td>@String.Format("{0:N0}", item.ThanhTien) VNĐ</td>
+                    <td>@(item.TGHoanThanh.HasValue ? item.TGHoanThanh.Value.ToString("dd/MM/yyyy HH:mm:ss") : "Không xác định")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<h4>Tổng tiền: @String.Format("{0:N0}", ViewBag.Tong) VNĐ</h4>
+
+
