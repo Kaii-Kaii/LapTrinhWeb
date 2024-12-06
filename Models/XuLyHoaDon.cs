@@ -137,44 +137,5 @@ namespace QL_NhaHang_ADO.Models
             cmd1.ExecuteNonQuery();
             con.Close();
         }
-        public List<ChiTietNhapKhoViewModel> GetChiTietNhapKho(string MaNhapKho)
-        {
-            List<ChiTietNhapKhoViewModel> listProduct = new List<ChiTietNhapKhoViewModel>();
-            SqlConnection con = new SqlConnection(connectionString);
-
-            string sql = @"
-        SELECT 
-            ctnk.MANHAPKHO,
-            ctnk.MANGUYENLIEU,
-            nl.TENNGUYENLIEU,
-            ctnk.SOLUONG,
-            ctnk.THANHTIEN
-        FROM ChiTietNhapKho ctnk
-        INNER JOIN NguyenLieu nl ON ctnk.MANGUYENLIEU = nl.MANGUYENLIEU
-        WHERE ctnk.MANHAPKHO = @MaNhapKho";
-
-            SqlCommand cmd = new SqlCommand(sql, con);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@MaNhapKho", MaNhapKho);
-            con.Open();
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                ChiTietNhapKhoViewModel item = new ChiTietNhapKhoViewModel
-                {
-                    MaNhapKho = rdr["MANHAPKHO"].ToString(),
-                   MaNguyenLieu = rdr["MANGUYENLIEU"].ToString(),
-                    TenNguyenLieu = rdr["TENNGUYENLIEU"].ToString(),
-                    SoLuong = int.Parse(rdr["SOLUONG"].ToString()),
-                    ThanhTien = int.Parse(rdr["THANHTIEN"].ToString())
-                };
-                listProduct.Add(item);
-            }
-
-            con.Close();
-            return listProduct;
-        }
-
     }
 }

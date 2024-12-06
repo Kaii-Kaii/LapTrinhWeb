@@ -38,10 +38,18 @@ namespace QL_NhaHang_ADO.Controllers
             {
                 return RedirectToAction("Error");
             }
+            // lấy thông tin khách hàng theo mã hóa đơn
 
             ConnectHoaDon connectHoaDon = new ConnectHoaDon();
+            ConnectDanhGia connectDanhGia = new ConnectDanhGia();
+            DanhGia DG = connectDanhGia.LayDanhGiaTuMaHD(ma);
+            KhachHang khach = new KhachHang();
+            HoaDon hoaDon = connectHoaDon.GetHoaDonByMa(ma);
+            khach = connectHoaDon.LayThongTinKHTheoMaHD(ma);
             List<ChiTietHoaDon> chiTiets = connectHoaDon.ListChiTiet(ma);
-
+            ViewBag.DanhGia = DG;
+            ViewBag.HoaDon = hoaDon;
+            ViewBag.Khach = khach;
             ViewBag.MaHD = ma;
             ViewBag.Tong = chiTiets.Sum(t => t.ThanhTien);
             return View(chiTiets);
