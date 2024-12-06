@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<QL_NhaHang_ADO.Models.NguyenLieu>
+
+
 @{
-    ViewBag.Title = "ThemHoaDon";
+    ViewBag.Title = "ThemPhieuXuatKho";
     Layout = "~/Views/Share/layuot_admin.cshtml";
 }
 
+<h2>ThemPhieuXuatKho</h2>
 <!-- Form Tạo Hóa Đơn -->
-<form method="post" action="@Url.Action("ThemHoaDonMoi", "Admin_HoaDon")">
+<form method="post" action="@Url.Action("ThemPhieXuatKhoMoi", "Admin_XuatKho")">
     <div class="app-body" style=" height: auto;">
         <div class="row gx-4">
             <div class="col-12">
@@ -37,7 +40,7 @@
                             <div class="col-sm-6 col-12">
                                 <div class="mb-4">
                                     <label for="dueDate" class="form-label">Ngày Tạo</label>
-                                    <input type="datetime-local" id="dueDate" name="NgayNhapKho" class="form-control" readonly>
+                                    <input type="datetime-local" id="dueDate" name="NgayXuatKho" class="form-control" readonly>
                                 </div>
 
                                 <script>
@@ -80,7 +83,7 @@
 <!-- Form Nhập Chi Tiết Hóa Đơn (hiện khi đã tạo hóa đơn) -->
 @if (ViewBag.HoaDonId != null)
 {
-    <form method="post" action="@Url.Action("ThemChiTietHoaDon", "Admin_HoaDon")">
+    <form method="post" action="@Url.Action("ThemChiTietXuatKho", "Admin_XuatKho")">
         <div class="app-body">
             <div class="row gx-4">
                 <div class="col-12">
@@ -140,9 +143,9 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
-       
+
     </form>
 
 }
@@ -151,22 +154,22 @@
     // Hàm tính tổng tiền
     function updateThanhTien(input) {
         const row = input.closest("tr");
-        const soLuong = parseInt(row.querySelector("input[name='ChiTietHoaDon[][SoLuong]']").value) || 0;
-        const donGia = parseInt(row.querySelector("input[name='ChiTietHoaDon[][DonGia]']").value) || 0;
+        const soLuong = parseInt(row.querySelector("input[name='ChiTietXuatKho[][SoLuong]']").value) || 0;
+        const donGia = parseInt(row.querySelector("input[name='ChiTietXuatKho[][DonGia]']").value) || 0;
         const thanhTien = soLuong * donGia;
 
         // Ghi giá trị thực vào Thành Tiền
-        row.querySelector("input[name='ChiTietHoaDon[][ThanhTien]']").value = thanhTien;
+        row.querySelector("input[name='ChiTietXuatKho[][ThanhTien]']").value = thanhTien;
     }
 
     // Thêm sự kiện cho các ô số lượng và đơn giá trong các dòng hiện tại
-    document.querySelectorAll("input[name='ChiTietHoaDon[][SoLuong]'], input[name='ChiTietHoaDon[][DonGia]']").forEach(input => {
+    document.querySelectorAll("input[name='ChiTietXuatKho[][SoLuong]'], input[name='ChiTietXuatKho[][DonGia]']").forEach(input => {
         input.addEventListener("input", function () {
             updateThanhTien(this);
         });
     });
 
-     //Cập nhật khi thêm dòng mới
+    //Cập nhật khi thêm dòng mới
     document.getElementById("addNewRow").addEventListener("click", function (e) {
         e.preventDefault();
 
@@ -175,16 +178,16 @@
 
         newRow.innerHTML = `
         <td>
-            <select name="ChiTietHoaDon[][TenNguyenLieu]" class="form-control" onchange="fetchIngredientDetails(this)" required>
+            <select name="ChiTietXuatKho[][TenNguyenLieu]" class="form-control" onchange="fetchIngredientDetails(this)" required>
                 <option value="">Chọn Nguyên Liệu</option>
-                ${document.querySelector("select[name='ChiTietHoaDon[][TenNguyenLieu]']").innerHTML}
+                ${document.querySelector("select[name='ChiTietXuatKho[][TenNguyenLieu]']").innerHTML}
             </select>
         </td>
-        <td><input type="text" name="ChiTietHoaDon[][MaNguyenLieu]" class="form-control" readonly></td>
-        <td><input type="number" name="ChiTietHoaDon[][SoLuong]" class="form-control" required></td>
-        <td><input type="text" name="ChiTietHoaDon[][DVT]" class="form-control" readonly></td>
-        <td><input type="number" name="ChiTietHoaDon[][DonGia]" class="form-control" readonly></td>
-        <td><input type="number" name="ChiTietHoaDon[][ThanhTien]" class="form-control" readonly></td>
+        <td><input type="text" name="ChiTietXuatKho[][MaNguyenLieu]" class="form-control" readonly></td>
+        <td><input type="number" name="ChiTietXuatKho[][SoLuong]" class="form-control" required></td>
+        <td><input type="text" name="ChiTietXuatKho[][DVT]" class="form-control" readonly></td>
+        <td><input type="number" name="ChiTietXuatKho[][DonGia]" class="form-control" readonly></td>
+        <td><input type="number" name="ChiTietXuatKho[][ThanhTien]" class="form-control" readonly></td>
         <td>
             <button type="button" class="btn btn-outline-dark" onclick="this.closest('tr').remove()">
                 <i class="bi bi-trash"></i>
@@ -195,7 +198,7 @@
         tableBody.appendChild(newRow);
 
         // Gắn sự kiện cho các ô nhập mới
-        newRow.querySelectorAll("input[name='ChiTietHoaDon[][SoLuong]'], input[name='ChiTietHoaDon[][DonGia]']").forEach(input => {
+        newRow.querySelectorAll("input[name='ChiTietXuatKho[][SoLuong]'], input[name='ChiTietXuatKho[][DonGia]']").forEach(input => {
             input.addEventListener("input", function () {
                 updateThanhTien(this);
             });
@@ -206,7 +209,7 @@
 
         if (selectedName) {
             // Gọi API để lấy thông tin chi tiết nguyên liệu
-            fetch(`/Admin_HoaDon/GetNguyenLieuDetails?tenNguyenLieu=${encodeURIComponent(selectedName)}`)
+            fetch(`/Admin_XuatKho/GetNguyenLieuDetails?tenNguyenLieu=${encodeURIComponent(selectedName)}`)
                 .then(response => response.json())
                 .then(data => {
                     // Lấy hàng hiện tại
@@ -224,5 +227,5 @@
                 .catch(error => console.error('Lỗi khi lấy thông tin nguyên liệu:', error));
         }
     }
-   
+
 </script>
