@@ -5,6 +5,10 @@
     Layout = "~/Views/Share/layuot_admin.cshtml";
 }
 
+
+
+
+
 <a href="@Url.Action("ThemHoaDon", "Admin_HoaDon")" class="btn btn-primary">Tạo Hóa Đơn Mới</a>
 <table class="table">
     <tr>
@@ -35,11 +39,12 @@
             @Html.DisplayFor(modelItem => item.NgayNhapKho)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TongTien)
+            @Html.Raw(string.Format("{0:N0}", item.TongTien))
         </td>
         <td>
-            @Html.ActionLink("Chi tiết", "HienThiChiTietHoaDon", "Admin_HoaDon", new { MaNhapKho = item.MaNhapKho }, null) 
+            @Html.ActionLink("Chi tiết", "chitietNhapKho", "Admin_HoaDon", new { MaNhapKho = item.MaNhapKho }, null) 
         </td>
     </tr>
 }
+
 </table>

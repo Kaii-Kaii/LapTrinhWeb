@@ -1,32 +1,30 @@
-﻿using System;
+﻿using QL_NhaHang_ADO.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
-using QL_NhaHang_ADO.Models;
-
 namespace QL_NhaHang_ADO.Controllers
 {
-    public class Admin_HoaDonController : Controller
+    public class Admin_XuatKhoController : Controller
     {
-        // GET: Admin_HoaDon
+        // GET: Admin_XuatKho
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult HienThiHoaDon()
+        public ActionResult HienThiXuatKho()
         {
-            XuLyHoaDon objHD = new XuLyHoaDon();
-            List<PhieuNhapKho> listHD = objHD.LayThongTinHoaDon();
+            XuLyXuatKho objHD = new XuLyXuatKho();
+            List<PhieuXuatKho> listHD = objHD.LayThongTinXuatKho();
             return View(listHD);
         }
 
-        public string GeneratePhieuNhapKho()
+        public string GenerateXuatKho()
         {
-            string prefix = "PNK";
+            string prefix = "PXK";
             int nextNumber = GetNextNumberFromDatabase(); // Hàm để lấy số tiếp theo từ CSDL
             string maNhaoKho = prefix + nextNumber.ToString("D4"); // Format thành 'TK0001'
 
@@ -42,7 +40,7 @@ namespace QL_NhaHang_ADO.Controllers
                 conn.Open();
 
                 // Truy vấn số thứ tự lớn nhất hiện có
-                string query = "SELECT MAX(CAST(SUBSTRING(MANHAPKHO, 4, LEN(MANHAPKHO) - 3) AS INT)) AS MaxValue FROM PhieuNhapKho;";
+                string query = "SELECT MAX(CAST(SUBSTRING(MAXUATKHO, 4, LEN(MAXUATKHO) - 3) AS INT)) AS MaxValue FROM PhieuXuatKho;";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -57,59 +55,59 @@ namespace QL_NhaHang_ADO.Controllers
 
             return nextNumber;
         }
-        public ActionResult ThemHoaDon()
+        public ActionResult ThemPhieuXuatKho()
         {
-            string maPhieuNhap = GeneratePhieuNhapKho(); // Gọi hàm để lấy giá trị
+            string maPhieuNhap = GenerateXuatKho(); // Gọi hàm để lấy giá trị
             ViewBag.MaPhieuNhap = maPhieuNhap;
-            XuLyNguyenLieu objHD = new XuLyNguyenLieu();      
+            XuLyNguyenLieu objHD = new XuLyNguyenLieu();
             var danhSachNguyenLieu = objHD.LayThongTinNguyenLieu(); // Gọi phương thức lấy danh sách nguyên liệu
             // Truyền dữ liệu vào View
             return View(danhSachNguyenLieu);
         }
 
         [HttpPost]
-        public ActionResult ThemHoaDonMoi(FormCollection f)
+        public ActionResult ThemPhieXuatKhoMoi(FormCollection f)
         {
-            PhieuNhapKho hd = new PhieuNhapKho();
-            hd.MaNhapKho = f["MaNhapKho"];
+            PhieuXuatKho hd = new PhieuXuatKho();
+            hd.MaXuatKho = f["MaNhapKho"];
             hd.MaNV = f["MaNV"];
-            hd.NgayNhapKho = DateTime.Parse(f["NgayNhapKho"]);
+            hd.NgayXuatKho = DateTime.Parse(f["NgayXuatKho"]);
             hd.TongTien = 0;
 
-            XuLyHoaDon objHD = new XuLyHoaDon();
-            objHD.XuLyThemHoaDon(hd);
+            XuLyXuatKho objHD = new XuLyXuatKho();
+            objHD.XuLyThemPhieuXuatKho(hd);
 
             // Lưu ID của hóa đơn vừa tạo vào ViewBag để hiển thị form nhập chi tiết
-            ViewBag.HoaDonId = hd.MaNhapKho;
+            ViewBag.HoaDonId = hd.MaXuatKho;
 
             // Trả về view lại với ViewBag chứa HoaDonId
-            return View("ThemHoaDon");
+            return View("ThemPhieuXuatKho");
         }
 
 
         [HttpPost]
-        public ActionResult ThemChiTietHoaDon(FormCollection f)
+        public ActionResult ThemChiTietXuatKho(FormCollection f)
         {
-            string MaNhapKho = f["MaNhapKho"]; // Lấy MaNhapKho từ form
-            if (string.IsNullOrEmpty(MaNhapKho))
+            string MaXuatKho = f["MaNhapKho"]; // Lấy MaNhapKho từ form
+            if (string.IsNullOrEmpty(MaXuatKho))
             {
                 // Kiểm tra nếu MaNhapKho là null hoặc rỗng, có thể thêm xử lý lỗi ở đây
                 return RedirectToAction("Error"); // hoặc hiển thị thông báo lỗi
             }
 
-            string[] MaNguyenLieu = f.GetValues("ChiTietHoaDon[][MaNguyenLieu]");
-            string[] TenNguyenLieu = f.GetValues("ChiTietHoaDon[][TenNguyenLieu]");
-            string[] SoLuong = f.GetValues("ChiTietHoaDon[][SoLuong]");
-            string[] DVT = f.GetValues("ChiTietHoaDon[][DVT]");
-            string[] DonGia = f.GetValues("ChiTietHoaDon[][DonGia]");
-            string[] ThanhTien = f.GetValues("ChiTietHoaDon[][ThanhTien]");
+            string[] MaNguyenLieu = f.GetValues("ChiTietXuatKho[][MaNguyenLieu]");
+            string[] TenNguyenLieu = f.GetValues("ChiTietXuatKho[][TenNguyenLieu]");
+            string[] SoLuong = f.GetValues("ChiTietXuatKho[][SoLuong]");
+            string[] DVT = f.GetValues("ChiTietXuatKho[][DVT]");
+            string[] DonGia = f.GetValues("ChiTietXuatKho[][DonGia]");
+            string[] ThanhTien = f.GetValues("ChiTietXuatKho[][ThanhTien]");
 
-            List<ChiTietNhapKho> listCTHD = new List<ChiTietNhapKho>();
+            List<ChiTietXuatKho> listCTHD = new List<ChiTietXuatKho>();
             for (int i = 0; i < MaNguyenLieu.Length; i++)
             {
-                ChiTietNhapKho cthd = new ChiTietNhapKho
+                ChiTietXuatKho cthd = new ChiTietXuatKho
                 {
-                    MaNhapKho = MaNhapKho,  // Đảm bảo MaNhapKho được gán đúng
+                    MaXuatKho = MaXuatKho,  // Đảm bảo MaNhapKho được gán đúng
                     MaNguyenLieu = MaNguyenLieu[i],
                     SoLuong = int.Parse(SoLuong[i]),
                     ThanhTien = int.Parse(ThanhTien[i])
@@ -117,10 +115,10 @@ namespace QL_NhaHang_ADO.Controllers
                 listCTHD.Add(cthd);
             }
 
-            XuLyHoaDon objHD = new XuLyHoaDon();
-            objHD.XuLyThemChiTietHoaDon(listCTHD);
+            XuLyXuatKho objHD = new XuLyXuatKho();
+            objHD.XuLyThemChiTietXuatKho(listCTHD);
 
-            return RedirectToAction("HienThiHoaDon");
+            return RedirectToAction("HienThiXuatKho");
         }
         public JsonResult GetNguyenLieuDetails(string tenNguyenLieu)
         {
@@ -166,20 +164,19 @@ namespace QL_NhaHang_ADO.Controllers
 
         public ActionResult _tableNguyenLieu()
         {
-            string maPhieuNhap = GeneratePhieuNhapKho(); // Gọi hàm để lấy giá trị
-            ViewBag.MaPhieuNhap = maPhieuNhap;
+            string maPhieuXuat = GenerateXuatKho(); // Gọi hàm để lấy giá trị
+            ViewBag.maPhieuXuat = maPhieuXuat;
             XuLyNguyenLieu objHD = new XuLyNguyenLieu();
             var danhSachNguyenLieu = objHD.LayThongTinNguyenLieu(); // Gọi phương thức lấy danh sách nguyên liệu
             // Truyền dữ liệu vào View
             return View(danhSachNguyenLieu);
         }
-        private XuLyHoaDon _repository = new XuLyHoaDon();
+        private XuLyXuatKho _repository = new XuLyXuatKho();
 
-        public ActionResult chitietNhapKho(string MaNhapKho)
+        public ActionResult chitietXuatKho(string MaNhapKho)
         {
-            var chiTietNhapKho = _repository.GetChiTietNhapKho(MaNhapKho);
+            var chiTietNhapKho = _repository.GetChiTietXuatKho(MaNhapKho);
             return View(chiTietNhapKho);
         }
     }
 }
-
