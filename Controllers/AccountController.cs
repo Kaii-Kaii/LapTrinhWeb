@@ -152,9 +152,6 @@ namespace QL_NhaHang_ADO.Controllers
 
             XuLyThongTinKhachHang objKH = new XuLyThongTinKhachHang();
             List<KhachHang> listKH = objKH.LayThongTinKhachHang();
-
-            XuLyThongTinNhanVien objNV = new XuLyThongTinNhanVien();
-            List<NhanVien> listNV = objNV.LayThongTinNhanVien();
             bool isValidUser = false;
             if (model.TenDangNhap != null)
             {
@@ -174,20 +171,11 @@ namespace QL_NhaHang_ADO.Controllers
                             if (item.MaTaiKhoan == item2.MaTaiKhoan)
                             {                              
                                 Session["HoTen"] = item2.HoTen;
-                                Session["Avatar"] = item2.Avatar; 
+                                Session["Avatar"] = item2.Avatar; // Nếu có cột avatar
                                 Session["MaKH"] = item2.MaKH;
                                 Session["NgaySinh"] = item2.NgaySinh;
                                 Session["SoDT"] = item2.SoDT;
                                 Session["DiemThanhVien"] = item2.DiemThanhVien;
-                            }
-                        }
-                        foreach (NhanVien item2 in listNV)
-                        {
-                            if (item.MaTaiKhoan == item2.MaTaiKhoan)
-                            {
-                                Session["HoTen"] = item2.HoTen;
-                                Session["MaNV"] = item2.MaNV;
-                                Session["SoDT"] = item2.SoDT;
                             }
                         }
                         foreach (TaiKhoan item3 in listTK)
@@ -226,6 +214,7 @@ namespace QL_NhaHang_ADO.Controllers
                 TempData["ErrorMessage"] = "Thông tin đăng nhập không chính xác.";
                 return View(model);
             }
+
         }
         //==========================================================================================================================================
         //Xác thực ma OTP

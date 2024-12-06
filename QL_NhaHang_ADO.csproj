@@ -336,7 +336,6 @@
     <Content Include="Images\MonAn\bun_cha.jpg" />
     <Content Include="Images\MonAn\com_tam.jpg" />
     <Content Include="Images\MonAn\lau_thai.jpg" />
-    <Content Include="Images\Picture1.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -345,8 +344,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Admin_HoaDonController.cs" />
     <Compile Include="Controllers\Admin_MonAnController.cs" />
-    <Compile Include="Controllers\Admin_NguyenLieuController.cs" />
-    <Compile Include="Controllers\Admin_XuatKhoController.cs" />
     <Compile Include="Controllers\DanhGiaController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
@@ -358,8 +355,6 @@
     </Compile>
     <Compile Include="Models\Ban.cs" />
     <Compile Include="Models\ChiTietHoaDon.cs" />
-    <Compile Include="Models\ChiTietNhapKhoViewModel.cs" />
-    <Compile Include="Models\ChiTietXuatKhoViewModel.cs" />
     <Compile Include="Models\ConnectBan.cs" />
     <Compile Include="Models\ConnectDanhGia.cs" />
     <Compile Include="Models\ConnectHoaDon.cs" />
@@ -369,15 +364,15 @@
     <Compile Include="Models\Kho.cs" />
     <Compile Include="Models\KetNoiTaiKhoan.cs" />
     <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\MaGiamGia.cs" />
     <Compile Include="Models\MonAn.cs" />
-    <Compile Include="Models\NhanVien.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
+    <Compile Include="Models\ViewThanhToan.cs" />
+    <Compile Include="Models\XuLyGiamGia.cs" />
     <Compile Include="Models\XuLyHoaDon.cs" />
-    <Compile Include="Models\XuLyNguyenLieu.cs" />
+    <Compile Include="Models\XuLyThanhToan.cs" />
     <Compile Include="Models\XuLyThongTinKhachHang.cs" />
     <Compile Include="Models\XuLyThongTinMonAn.cs" />
-    <Compile Include="Models\XuLyThongTinNhanVien.cs" />
-    <Compile Include="Models\XuLyXuatKho.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -413,18 +408,13 @@
     <Content Include="Views\Share\layuot_admin.cshtml" />
     <Content Include="Views\Admin_MonAn\DanhSachMonAn.cshtml" />
     <Content Include="Views\Admin_HoaDon\HienThiHoaDon.cshtml" />
+    <Content Include="Views\Admin_HoaDon\HienThiChiTietHoaDon.cshtml" />
     <Content Include="Views\Admin_HoaDon\ThemHoaDon.cshtml" />
     <Content Include="Views\NhaHang\ShowHD.cshtml" />
     <Content Include="Views\NhaHang\ShowCTHD.cshtml" />
     <Content Include="Views\QuanLyBan\ShowBan.cshtml" />
     <Content Include="Views\DanhGia\ShowDanhGia.cshtml" />
-    <Content Include="Views\Admin_HoaDon\_tableNguyenLieu.cshtml" />
-    <Content Include="Views\Admin_HoaDon\chitietNhapKho.cshtml" />
-    <Content Include="Views\Admin_XuatKho\HienThiXuatKho.cshtml" />
-    <Content Include="Views\Admin_XuatKho\ThemPhieuXuatKho.cshtml" />
-    <Content Include="Views\Admin_XuatKho\_tableNguyenLieu.cshtml" />
-    <Content Include="Views\Admin_XuatKho\chitietXuatKho.cshtml" />
-    <Content Include="Views\Admin_NguyenLieu\HienThiNguyenLieu.cshtml" />
+    <Content Include="Views\GioHang\HienThiHoaDonVaQRThanhToan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
