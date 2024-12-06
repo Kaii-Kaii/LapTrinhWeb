@@ -13,7 +13,7 @@ namespace QL_NhaHang_ADO.Controllers
         private XuLyThongTinKhachHang khachhangRepo = new XuLyThongTinKhachHang();
         private static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["connect1"].ConnectionString;
         // GET: KhachHang
-        public new ActionResult Profile()
+        public ActionResult Profile()
         {
             // Kiểm tra đăng nhập
             ViewBag.Mail = Session["Mail"];

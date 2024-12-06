@@ -64,8 +64,8 @@ VALUES (@MaTaiKhoan, @MaQuyen, @TenDangNhap, @MatKhau, @Email, 0, @EmailConfirma
             <html>
             <body style='text-align: center; font-family: Arial, sans-serif;'>
                 <div style='margin: 20px;'>
-                    <img src='https://img.upanh.tv/2024/09/29/logo.png' alt='Logo' style='width: 100px; height: auto;'/>
-                    <h2 style='color: red;'>sushi JP</h2>
+                    <img src='https://upanh.tv/image/ficrja' alt='Logo' style='width: 100px; height: auto;'/>
+                    <h2 style='color: red;'>Chay Tuệ</h2>
                     <p>Vui lòng nhấn vào liên kết sau để xác thực tài khoản của bạn:</p>
                     <a href='{link}' style='color: blue;'>{link}</a>
                 </div>
@@ -94,7 +94,7 @@ VALUES (@MaTaiKhoan, @MaQuyen, @TenDangNhap, @MatKhau, @Email, 0, @EmailConfirma
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("sushijpvn@gmail.com", "xwea bvyr lwwb mxvt");
+            smtp.Credentials = new System.Net.NetworkCredential("chaytue0203@gmail.com", "kctw ltds teaj luvb");
             smtp.EnableSsl = true;
 
             smtp.Send(mail);
