@@ -23,7 +23,8 @@ namespace QL_NhaHang_ADO.Models
                              TenMon,
                              LoaiMon,
                              Gia,
-                             AnhMon
+                             AnhMon,
+                                MoTa    
                          FROM MonAn";
 
             SqlCommand cmd = new SqlCommand(sql, con);
@@ -48,6 +49,8 @@ namespace QL_NhaHang_ADO.Models
                 Ma.Gia = float.Parse(rdr.GetValue(3).ToString());
 
                 Ma.AnhMon = rdr.GetValue(4).ToString();
+
+                Ma.MoTa = rdr.GetValue(5).ToString();
 
                 listProduct.Add(Ma);
             }
@@ -118,7 +121,7 @@ namespace QL_NhaHang_ADO.Models
             SqlConnection con = new SqlConnection(connectionString);
             string sql = @"
                          UPDATE MonAn
-                         SET TenMon = @TenMon, LoaiMon = @LoaiMon, Gia = @Gia, AnhMon = @AnhMon
+                         SET TenMon = @TenMon, LoaiMon = @LoaiMon, Gia = @Gia, AnhMon = @AnhMon, MoTa = @MoTa
                          WHERE MaMonAn = @MaMonAn";
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.CommandType = CommandType.Text;
@@ -127,6 +130,7 @@ namespace QL_NhaHang_ADO.Models
             cmd.Parameters.AddWithValue("@LoaiMon", Ma.LoaiMon);
             cmd.Parameters.AddWithValue("@Gia", Ma.Gia);
             cmd.Parameters.AddWithValue("@AnhMon", Ma.AnhMon);
+            cmd.Parameters.AddWithValue("@MoTa", Ma.MoTa);
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();

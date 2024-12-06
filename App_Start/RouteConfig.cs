@@ -16,7 +16,7 @@ namespace QL_NhaHang_ADO
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "DangKy", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "DangNhap", id = UrlParameter.Optional }
             );
         }
     }

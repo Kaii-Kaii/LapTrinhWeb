@@ -71,6 +71,7 @@ namespace QL_NhaHang_ADO.Controllers
             string[] DonGia = f.GetValues("ChiTietHoaDon[][DonGia]");
             string[] ThanhTien = f.GetValues("ChiTietHoaDon[][ThanhTien]");
 
+            // Tạo list chứa các chi tiết hóa đơn
             List<ChiTietNhapKho> listCTHD = new List<ChiTietNhapKho>();
             for (int i = 0; i < MaNguyenLieu.Length; i++)
             {

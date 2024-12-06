@@ -87,7 +87,6 @@ namespace QL_NhaHang_ADO.Models
                                 MaMA = reader["MAMONAN"].ToString(),
                                 SoLuong = Convert.ToInt32(reader["SOLUONG"]),
                                 ThanhTien = Convert.ToInt32(reader["THANHTIEN"]),
-                                TGHoanThanh = Convert.ToDateTime(reader["TGHOANTHANH"]),
                                 TenMon = reader["TENMON"].ToString(),
                                 GiaMon = Convert.ToInt32(reader["Gia"]),
 
@@ -262,5 +261,26 @@ namespace QL_NhaHang_ADO.Models
                 return listHD;
             }
 
+        public KhachHang LayThongTinKHTheoMaHD(string ma)
+        {
+            string sql = "SELECT * FROM KhachHang WHERE MAKH = (SELECT MAKH FROM HoaDon WHERE MAHOADON = @MaHD)";
+            KhachHang kh = new KhachHang();
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Connect1"].ConnectionString))
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@MaHD", ma);
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        kh.HoTen = reader["HOTEN"].ToString();
+                        kh.SoDT = reader["SODT"].ToString();
+                        kh.MaKH = reader["MAKH"].ToString();
+                    }
+                }
+            }
+            return kh;
         }
     }
+}

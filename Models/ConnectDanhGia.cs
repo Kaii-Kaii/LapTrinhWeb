@@ -56,6 +56,47 @@ namespace QL_NhaHang_ADO.Models
             return danhGias;
         }
 
+        public DanhGia LayDanhGiaTuMaHD(string ma)
+        {
+            DanhGia danhGia = new DanhGia();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string queryDangGia = @"
+                SELECT 
+                    DanhGia.MADANHGIA,
+                    DanhGia.MAHOADON,
+                    DanhGia.DANHGIA,
+                    KhachHang.HOTEN AS TenKH
+                FROM DanhGia
+                JOIN HoaDon ON DanhGia.MAHOADON = HoaDon.MAHOADON
+                JOIN KhachHang ON HoaDon.MAKH = KhachHang.MAKH
+                WHERE DanhGia.MAHOADON = @ma";
+                    using (SqlCommand cmdDangGia = new SqlCommand(queryDangGia, conn))
+                    {
+                        cmdDangGia.Parameters.AddWithValue("@ma", ma);
+                        using (SqlDataReader readerDangGia = cmdDangGia.ExecuteReader())
+                        {
+                            while (readerDangGia.Read())
+                            {
+                                danhGia.MaDGia = readerDangGia["MADANHGIA"].ToString();
+                                danhGia.MaHD = readerDangGia["MAHOADON"].ToString();
+                                danhGia.TenKH = readerDangGia["TenKH"].ToString();
+                                danhGia.NoiDung = readerDangGia["DANHGIA"].ToString();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+            return danhGia;
+        }
+
         public int DeleteDanhGia(string ma)
         {
             int kt = 0;

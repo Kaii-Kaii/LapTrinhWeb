@@ -14,7 +14,6 @@ namespace QL_NhaHang_ADO.Models
         public string LoaiMon { get; set; }
         public float Gia { get; set; }
         public string AnhMon { get; set; }
-
         public string MoTa { get; set; }
     }
 }

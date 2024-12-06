@@ -14,6 +14,5 @@ namespace QL_NhaHang_ADO.Models
         public double DonGia { get; set; }
         public string AnhMon { get; set; }
         public double ThanhTien => SoLuong * DonGia; // Tính thành tiền
-
     }
 }

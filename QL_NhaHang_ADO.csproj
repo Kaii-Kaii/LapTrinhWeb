@@ -364,9 +364,13 @@
     <Compile Include="Models\Kho.cs" />
     <Compile Include="Models\KetNoiTaiKhoan.cs" />
     <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\MaGiamGia.cs" />
     <Compile Include="Models\MonAn.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
+    <Compile Include="Models\ViewThanhToan.cs" />
+    <Compile Include="Models\XuLyGiamGia.cs" />
     <Compile Include="Models\XuLyHoaDon.cs" />
+    <Compile Include="Models\XuLyThanhToan.cs" />
     <Compile Include="Models\XuLyThongTinKhachHang.cs" />
     <Compile Include="Models\XuLyThongTinMonAn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -410,6 +414,7 @@
     <Content Include="Views\NhaHang\ShowCTHD.cshtml" />
     <Content Include="Views\QuanLyBan\ShowBan.cshtml" />
     <Content Include="Views\DanhGia\ShowDanhGia.cshtml" />
+    <Content Include="Views\GioHang\HienThiHoaDonVaQRThanhToan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
